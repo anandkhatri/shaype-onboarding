@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: demo
+
+shaype:
+  baseUrl: http://localhost:9999
+  # Requesting to store accessToken somewhere in secure vault
+  accessToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+  skipKYC: True #Skipping the Shaype platform KYC assuming KYC done at your end.
