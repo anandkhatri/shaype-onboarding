@@ -1,20 +1,33 @@
-# Getting Started
+# Onboarding on Shaype platform
+This service is used to onboard customer onto the Shaype platform.
 
-### Reference Documentation
-For further reference, please consider the following sections:
 
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.2.5/gradle-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.2.5/gradle-plugin/reference/html/#build-image)
-* [Spring Reactive Web](https://docs.spring.io/spring-boot/docs/3.2.5/reference/htmlsingle/index.html#web.reactive)
+## API Endpoints
+Below are the APIs exposed by the onboarding service.
 
-### Guides
-The following guides illustrate how to use some features concretely:
+| HTTP Method | Endpoint   | Description                                                                                                                                              |
+|-------------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| POST        | `/onboard` | The API will create a customer, update the customer's status to ACTIVE, create an account for that customer, and update the account's risk level to LOW. |
 
-* [Building a Reactive RESTful Web Service](https://spring.io/guides/gs/reactive-rest-service/)
+## Configuration
 
-### Additional Links
-These additional references should also help you:
+| Property           | Default value  | Description                                               |
+|--------------------|----------------|-----------------------------------------------------------|
+| shaype.baseUrl     | localhost:9999 | Shaype environment Base URL                               |
+| shaype.accessToken | {dummy value}  | Security token to access Shaype platform                  |
+| skipKYC            | true           | Flag that indicate that are you using Shaype KYC feature? |
 
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
+## Prerequisite 
+* Replace `shaype.baseUrl` property value with the Shaype platform URL
+* Replace `shaype.accessToken` property value with the access token that you received from Shaype team.
+* Define `skipKYC` property only if you are using Shaype KYC
+* Update the `mapCreateCustomer` method under `CustomerMapper.java` class with customer actual values (currently values are mock). 
+
+## How to Run?
+* Build the service with `$ gradle clean build`
+* Run the application by `$ gradle bootrun`
+* If you want to run service with mock, please refer `shaype-mock-server` project. 
+
+
+
 

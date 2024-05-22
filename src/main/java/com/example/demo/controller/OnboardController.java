@@ -1,16 +1,14 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.CreateCustomer;
-import com.example.demo.service.CustomerService;
 import com.example.demo.service.OnboardService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shaype.openapi.example.model.HayCustomer;
 
-import java.util.List;
-
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class OnboardController {
@@ -19,6 +17,7 @@ public class OnboardController {
 
     @PostMapping("/onboard")
     public HayCustomer onboardCustomer() {
+        log.info("Request to onboard the customer on Shaype platform.");
         return onboardService.onboardCustomerToShaypePlatform(new CreateCustomer());
     }
 
