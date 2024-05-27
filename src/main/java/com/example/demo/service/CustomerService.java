@@ -23,13 +23,12 @@ public class CustomerService {
     private final CustomersApiApi customersApi;
     private final CustomerMapper customerMapper;
 
-    public HayCustomer createCustomer(CreateCustomer createCustomer, UUID caseId) {
+    public HayCustomer createCustomer(CreateCustomer createCustomer) {
         //TODO: Perform your custom validation
         //TODO: Perform your business logic before customer creation
         HayCustomer customer;
         try {
-            CreateHayCustomerRequestBody createCustomerRequest = customerMapper.mapCreateCustomer(createCustomer, caseId);
-            customer = customersApi.createHayCustomer(createCustomerRequest);
+            customer = customersApi.createHayCustomer(createCustomer);
         } catch (RestClientResponseException e) {
             log.error("Error occurred while creating customer: {}", e.getMessage());
             throw new ShaypeApiException(e);

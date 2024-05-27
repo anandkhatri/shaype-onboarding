@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import shaype.openapi.example.api.AccountsApiApi;
 import shaype.openapi.example.api.CustomersApiApi;
+import shaype.openapi.example.api.GroupsApiApi;
 import shaype.openapi.example.api.KycApiApi;
 import shaype.openapi.example.invoker.ApiClient;
 import shaype.openapi.example.invoker.auth.HttpBearerAuth;
@@ -37,12 +38,14 @@ public class ShaypeApiConfig {
         return new KycApiApi(apiClient());
     }
 
+    @Bean
+    public GroupsApiApi groupAPI(){
+        return new GroupsApiApi(apiClient());
+    }
+
     private RestTemplate restTemplate(){
         RestTemplate restTemplate = new RestTemplate();
-
         restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-//        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-//        restTemplate.setRequestFactory(requestFactory);
         return restTemplate;
     }
 

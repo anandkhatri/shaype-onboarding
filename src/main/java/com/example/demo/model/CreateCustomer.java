@@ -1,11 +1,11 @@
 package com.example.demo.model;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import shaype.openapi.example.model.CreateHayCustomerRequestBody;
 
 @Builder
-@Data
 @NoArgsConstructor
-public class CreateCustomer {
+public class CreateCustomer extends CreateHayCustomerRequestBody {
+
 }

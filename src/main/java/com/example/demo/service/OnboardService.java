@@ -12,6 +12,8 @@ import shaype.openapi.example.model.CreateCaseExternalResponse;
 import shaype.openapi.example.model.HayAccount;
 import shaype.openapi.example.model.HayCustomer;
 
+import static java.lang.Boolean.FALSE;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -25,11 +27,13 @@ public class OnboardService {
     private Boolean skipKYC;
 
     public HayCustomer onboardCustomerToShaypePlatform(CreateCustomer createCustomer) {
+        validateRequest(createCustomer);
         HayCustomer customer;
+
         if (skipKYC) {
             log.info("Shaype KYC is disabled, creating a customer on platform.");
             // Creating a customer
-            customer = customerService.createCustomer(createCustomer, null);
+            customer = customerService.createCustomer(createCustomer);
             // Activate customer
             customerService.activateCustomer(customer.getCustomerHayId());
             // Creating account
@@ -41,10 +45,17 @@ public class OnboardService {
             //Creating a case
             CreateCaseExternalResponse caseResponse = createCase();
             //creating customer with caseId
-            customer = customerService.createCustomer(createCustomer, caseResponse.getScanCase().getId());
+            createCustomer.setIdentityVerificationCaseId(caseResponse.getScanCase().getId());
+            customer = customerService.createCustomer(createCustomer);
             log.info("Wait for ONBOARDING event");
         }
         return customer;
+    }
+
+    private void validateRequest(CreateCustomer createCustomer) {
+        if(!skipKYC.equals(createCustomer.getSkipKyc())){
+            throw new ShaypeApiException("Request doesn't match with configuration, please correct your request.");
+        }
     }
 
     private CreateCaseExternalResponse createCase(){
