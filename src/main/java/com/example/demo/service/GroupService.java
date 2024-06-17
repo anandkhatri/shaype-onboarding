@@ -5,7 +5,8 @@ import com.example.demo.model.Group;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientResponseException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestClientException;
 import shaype.openapi.example.api.GroupsApiApi;
 import shaype.openapi.example.model.AddCustomersToGroupRequestBody;
 import shaype.openapi.example.model.HayGroup;
@@ -21,10 +22,10 @@ public class GroupService {
     private final GroupsApiApi groupApi;
 
     public HayGroup createGroup(Group group) {
-        HayGroup hayGroup;
+        HayGroup hayGroup = null;
         try {
             hayGroup = groupApi.createHayGroup(group);
-        } catch (RestClientResponseException e) {
+        } catch (RestClientException e) {
             log.error("Error occurred while creating group: {}", e.getMessage());
             throw new ShaypeApiException(e);
         }
@@ -36,7 +37,7 @@ public class GroupService {
         HayJointAccount groupDetails;
         try {
             groupDetails = groupApi.addCustomersToGroup(groupId, addCustomersToGroupRequestBody);
-        } catch (RestClientResponseException e) {
+        } catch (RestClientException e) {
             log.error("Error occurred while adding customer to group: {}", e.getMessage());
             throw new ShaypeApiException(e);
         }

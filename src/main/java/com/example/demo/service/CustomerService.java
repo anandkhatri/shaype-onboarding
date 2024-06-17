@@ -6,7 +6,7 @@ import com.example.demo.model.CreateCustomer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientResponseException;
+import org.springframework.web.client.RestClientException;
 import shaype.openapi.example.api.CustomersApiApi;
 import shaype.openapi.example.model.ChangeHayCustomerStatusRequestBody;
 import shaype.openapi.example.model.CreateHayCustomerRequestBody;
@@ -29,7 +29,7 @@ public class CustomerService {
         HayCustomer customer;
         try {
             customer = customersApi.createHayCustomer(createCustomer);
-        } catch (RestClientResponseException e) {
+        } catch (RestClientException e) {
             log.error("Error occurred while creating customer: {}", e.getMessage());
             throw new ShaypeApiException(e);
         }
@@ -43,7 +43,7 @@ public class CustomerService {
                 .newStatus(ChangeHayCustomerStatusRequestBody.NewStatusEnum.ACTIVE);
         try {
             customersApi.changeHayCustomerStatus(customerId, statusRequest);
-        } catch (RestClientResponseException e) {
+        } catch (RestClientException e) {
             log.error("Error occurred while updating customer status to ACTIVE: {}", e.getMessage());
             throw new ShaypeApiException(e);
         }

@@ -42,9 +42,4 @@ public class OnboardController {
         log.info("Request to add customer to group.");
         return groupService.addCustomerToGroup(groupId, addCustomersToGroupRequestBody);
     }
-
-//    @GetMapping("/customer")
-//    public List<HayCustomer> getCustomer() {
-//        return customerService.getAllCustomer();
-//    }
 }
